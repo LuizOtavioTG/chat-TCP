@@ -60,10 +60,10 @@ public class MonoAlphabeticCipher implements Cipher {
                 if (mapped != null) {
                     sb.append(upper ? mapped : Character.toLowerCase(mapped));
                 } else {
-                    sb.append(c); // não deveria acontecer, mas por segurança
+                    sb.append(c);
                 }
             } else {
-                sb.append(c); // mantém espaços, números, pontuação
+                sb.append(c);
             }
         }
         return sb.toString();

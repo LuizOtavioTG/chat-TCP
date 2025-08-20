@@ -8,7 +8,7 @@ public class PlayfairCipher implements Cipher {
     private static final int SIZE = 5;
     private static final String ALPHABET = "ABCDEFGHIKLMNOPQRSTUVWXYZ"; // J funde com I
 
-    // ---------- util de chave / tabela ----------
+
     private static String normalizeKey(String key) {
         if (key == null) throw new IllegalArgumentException("Chave nula.");
         // mantém só A-Z, uppercase, J->I
@@ -20,6 +20,7 @@ public class PlayfairCipher implements Cipher {
             }
         }
         if (sb.length() == 0) throw new IllegalArgumentException("Chave vazia.");
+
         return sb.toString();
     }
 
@@ -46,6 +47,7 @@ public class PlayfairCipher implements Cipher {
                 table.append(ch);
             }
         }
+
 
         return table.toString(); // 25 letras
     }

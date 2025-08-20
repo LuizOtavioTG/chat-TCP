@@ -31,7 +31,7 @@ public class ChatClient {
                 try {
                     while (true) {
                         Message msg = (Message) in.readObject();
-                        String plain = cipher.decrypt(msg.getText(), msg.getKey());
+                        String plain = cipher.decrypt(msg.getText(), this.key);
                         System.out.println("<< " + plain);
                     }
                 } catch (Exception e) {

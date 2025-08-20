@@ -4,14 +4,13 @@ public class VigenereCipher implements Cipher {
 
     private static String normalizeKey(String key) {
         if (key == null) throw new IllegalArgumentException("Chave nula.");
-        // mantém só A–Z
+
         String cleaned = key.replaceAll("[^A-Za-z]", "").toUpperCase();
         if (cleaned.isEmpty()) throw new IllegalArgumentException("A chave deve conter letras (A–Z).");
         return cleaned;
     }
 
     private static char encChar(char plain, char k) {
-        // plain já é letra; preserva caixa depois
         int base = Character.isUpperCase(plain) ? 'A' : 'a';
         int p = Character.toUpperCase(plain) - 'A';
         int s = k - 'A';
@@ -42,7 +41,7 @@ public class VigenereCipher implements Cipher {
                 out.append(encChar(ch, kk));
                 ki++;
             } else {
-                out.append(ch); // mantém espaços, números, pontuação
+                out.append(ch);
             }
         }
         return out.toString();
