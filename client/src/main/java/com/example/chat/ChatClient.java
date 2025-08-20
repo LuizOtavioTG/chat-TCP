@@ -45,7 +45,9 @@ public class ChatClient {
             while (true) {
                 String plain = ConsoleUtils.readLine(">> ");
                 String enc = cipher.encrypt(plain, key);
-                out.writeObject(new Message(enc, cipher.getClass().getSimpleName(), key));
+                String type = cipher.getClass().getSimpleName(); // ex.: "CaesarCipher"
+
+                out.writeObject(new Message(enc, type, key));
                 out.flush();
             }
         }

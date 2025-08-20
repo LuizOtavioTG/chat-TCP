@@ -30,7 +30,19 @@ public class ChatServer {
     }
 
     public static void broadcast(Message msg, ObjectOutputStream sender) {
-        System.out.println("[Servidor recebeu - criptografada]: " + msg.getText());
+        // Log ENC + DEC
+        String enc = msg.getText();
+        String dec;
+        try {
+            Cipher c = CipherFactory.fromType(msg.getCipherType());
+            dec = (c != null) ? c.decrypt(enc, msg.getKey())
+                    : "(cifra desconhecida: " + msg.getCipherType() + ")";
+        } catch (Exception e) {
+            dec = "(erro ao decifrar: " + e.getMessage() + ")";
+        }
+        System.out.println("[Servidor] ENC: " + enc + " | DEC: " + dec);
+
+        // Repassa a mensagem original (criptografada)
         synchronized (clients) {
             Iterator<ObjectOutputStream> it = clients.iterator();
             while (it.hasNext()) {
@@ -40,9 +52,10 @@ public class ChatServer {
                     out.writeObject(msg);
                     out.flush();
                 } catch (IOException e) {
-                    it.remove(); // remove cliente morto
+                    it.remove();
                 }
             }
         }
     }
+
 }

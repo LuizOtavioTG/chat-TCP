@@ -24,7 +24,7 @@ public class ChatApp {
 
         Cipher cipher = switch (choice) {
             case 1 -> new CaesarCipher();
-//            case 2 -> new MonoAlphabeticCipher();
+            case 2 -> new MonoAlphabeticCipher();
 //            case 3 -> new PlayfairCipher();
 //            case 4 -> new VigenereCipher();
             default -> throw new IllegalArgumentException("Opção inválida");
