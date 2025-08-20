@@ -1,31 +1,27 @@
-version: "3.9"
-
 networks:
   chatnet:
     driver: bridge
 
 services:
   server:
-    build: ./server
+    build:
+      context: .
+      dockerfile: server/Dockerfile
     container_name: chat-server
     environment:
       - PORT=5000
     ports:
       - "5000:5000"
-    networks:
-      - chatnet
+    networks: [chatnet]
 
   client:
-    build: ./client
-    # Allow interactive stdin/tty for chat input
+    build:
+      context: .
+      dockerfile: client/Dockerfile
     stdin_open: true
     tty: true
     environment:
       - HOST=server
       - PORT=5000
-      # Optionally set USERNAME here or pass at runtime
-      # - USERNAME=alice
-    depends_on:
-      - server
-    networks:
-      - chatnet
+    depends_on: [server]
+    networks: [chatnet]
