@@ -4,8 +4,6 @@ import com.example.chat.model.Message;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import com.example.chat.crypto.Cipher;
-import com.example.chat.crypto.CipherFactory;
 
 public class ChatServer {
     private static final List<ObjectOutputStream> clients =
@@ -30,29 +28,19 @@ public class ChatServer {
     }
 
     public static void broadcast(Message msg, ObjectOutputStream sender) {
-        // Log ENC + DEC
-        String enc = msg.getText();
-        String dec;
-        try {
-            Cipher c = CipherFactory.fromType(msg.getCipherType());
-            dec = (c != null) ? c.decrypt(enc, msg.getKey())
-                    : "(cifra desconhecida: " + msg.getCipherType() + ")";
-        } catch (Exception e) {
-            dec = "(erro ao decifrar: " + e.getMessage() + ")";
-        }
-        System.out.println("[Servidor] ENC: " + enc + " | DEC: " + dec);
+        // Loga somente a mensagem CRIPTOGRAFADA (como chegou) *Como o professor pediu.
+        System.out.println("[Server] ENC: " + msg.getText());
 
-        // Repassa a mensagem original (criptografada)
         synchronized (clients) {
             Iterator<ObjectOutputStream> it = clients.iterator();
             while (it.hasNext()) {
                 ObjectOutputStream out = it.next();
                 if (out == sender) continue;
                 try {
-                    out.writeObject(msg);
+                    out.writeObject(msg);   // repassa a MESMA mensagem cifrada
                     out.flush();
                 } catch (IOException e) {
-                    it.remove();
+                    it.remove(); // remove cliente desconectado
                 }
             }
         }
