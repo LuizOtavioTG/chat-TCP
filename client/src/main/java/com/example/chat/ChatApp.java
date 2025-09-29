@@ -21,6 +21,7 @@ public class ChatApp {
         System.out.println("3 - Playfair");
         System.out.println("4 - Vigenère");
         System.out.println("5 - RC4");
+        System.out.println("6 - DES");
         int choice = ConsoleUtils.readInt("Opção: ");
 
         Cipher cipher = switch (choice) {
@@ -29,6 +30,7 @@ public class ChatApp {
             case 3 -> new PlayfairCipher();
             case 4 -> new VigenereCipher();
             case 5 -> new RC4Cipher();
+            case 6 -> new DESCipher();
             default -> throw new IllegalArgumentException("Opção inválida");
         };
 
