@@ -242,7 +242,7 @@ public class DESCipher implements Cipher {
         int pad = block - (data.length % block);
         if (pad == 0) pad = block;
         byte[] out = Arrays.copyOf(data, data.length + pad);
-        Arrays.fill(out, data.length, out.length, (byte) pad);
+        Arrays.fill(out, data.length, out.length, (byte) 0);
         return out;
     }
     private static byte[] pkcs7Unpad(byte[] data, int block) {
