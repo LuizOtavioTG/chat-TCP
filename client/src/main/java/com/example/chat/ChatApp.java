@@ -22,6 +22,7 @@ public class ChatApp {
         System.out.println("4 - Vigenère");
         System.out.println("5 - RC4");
         System.out.println("6 - DES");
+        System.out.println("7 - AES");
         int choice = ConsoleUtils.readInt("Opção: ");
 
         Cipher cipher = switch (choice) {
@@ -31,6 +32,7 @@ public class ChatApp {
             case 4 -> new VigenereCipher();
             case 5 -> new RC4Cipher();
             case 6 -> new DESCipher();
+            case 7 -> new AESCipher();
             default -> throw new IllegalArgumentException("Opção inválida");
         };
 
