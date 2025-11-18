@@ -36,17 +36,12 @@ public class ChatApp {
             default -> throw new IllegalArgumentException("Opção inválida");
         };
 
-        String keyPrompt = (choice == 1)
-                ? "Digite a chave (César = número inteiro): "
-                : "Digite a chave: ";
-        String key = ConsoleUtils.readLine(keyPrompt).trim();
-
-        // Validação simples para César
+        String key;
         if (choice == 1) {
-            try { Integer.parseInt(key); }
-            catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Para a Cifra de César, a chave deve ser um número inteiro.");
-            }
+            System.out.println("As chaves da Cifra de César serão negociadas automaticamente via Diffie-Hellman.");
+            key = "0";
+        } else {
+            key = ConsoleUtils.readLine("Digite a chave: ").trim();
         }
 
         ChatClient client = new ChatClient(host, port, cipher, key);
